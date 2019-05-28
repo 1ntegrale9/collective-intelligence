@@ -19,7 +19,7 @@ def api_get_keys():
     return jsonify({'keys': get_keys()})
 
 
-@app.route('/api/values/<str:key>', methods=['GET'])
+@app.route('/api/get_values/<str:key>', methods=['GET'])
 def api_get_values(key):
     return jsonify({key: get_values(key)})
 
