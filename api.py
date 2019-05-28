@@ -14,10 +14,9 @@ def index():
     return 'Hello World!'
 
 
-@app.route('/api/get_keys')
+@app.route('/api/get_keys', methods=['GET'])
 def api_get_keys():
-    results = '\n'.join(get_keys())
-    return results
+    return jsonify({key: get_keys()})
 
 
 @app.route('/api/set_values', methods=['POST'])
