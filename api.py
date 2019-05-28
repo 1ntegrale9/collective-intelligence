@@ -14,8 +14,8 @@ def index():
     return 'Hello World!'
 
 
-@app.route('/keys')
-def keys():
+@app.route('/api/get_keys')
+def api_get_keys():
     results = '\n'.join(get_keys())
     return results
 
