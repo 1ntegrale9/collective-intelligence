@@ -16,12 +16,16 @@ def index():
 
 @app.route('/api/get_keys', methods=['GET'])
 def api_get_keys():
-    return jsonify({'keys': get_keys()})
+    response = jsonify({'keys': get_keys()})
+    response.status_code = 200
+    return response
 
 
 @app.route('/api/get_values/<path:key>', methods=['GET'])
 def api_get_values(key):
-    return jsonify({key: get_values(key)})
+    response = jsonify({key: get_values(key)})
+    response.status_code = 200
+    return response
 
 
 @app.route('/api/set_values', methods=['POST'])
@@ -29,14 +33,20 @@ def api_set_values():
     posted = request.get_json()
     keys = list(posted.keys())
     if len(keys) != 1:
-        return jsonify({'Error': 'Specify only one key'})
+        response = jsonify({'Error': 'Specify only one key'})
+        response.status_code = 400
+        return response
     key = keys[0]
     values = posted[key]
     if type(values) != list or any(type(value) != str for value in values):
-        return jsonify({'Error': 'Value must be an array of strings'})
+        response = jsonify({'Error': 'Value must be an array of strings'})
+        response.status_code = 400
+        return response
     set_values(key, values)
     values = get_values(key)
-    return jsonify({key: values})
+    response = jsonify({key: values})
+    response.status_code = 201
+    return response
 
 
 if __name__ == '__main__':
