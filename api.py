@@ -29,6 +29,7 @@ def api_set_values():
     values = posted[key]
     if type(values) != list or any(type(value) != str for value in values):
         return jsonify({'Error': 'Value must be an array of strings'})
+    set_values(key, values)
     values = get_values(key)
     return jsonify({key: values})
 
