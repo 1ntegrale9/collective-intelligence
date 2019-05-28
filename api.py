@@ -33,12 +33,12 @@ def api_set_values():
     keys = list(posted.keys())
     if len(keys) != 1:
         json = jsonify({'Error': 'Specify only one key'})
-    return make_response(json, 400)
+        return make_response(json, 400)
     key = keys[0]
     values = posted[key]
     if type(values) != list or any(type(value) != str for value in values):
         json = jsonify({'Error': 'Value must be an array of strings'})
-    return make_response(json, 400)
+        return make_response(json, 400)
     set_values(key, values)
     values = get_values(key)
     json = jsonify({key: values})
