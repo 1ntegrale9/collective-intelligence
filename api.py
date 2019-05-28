@@ -19,6 +19,11 @@ def api_get_keys():
     return jsonify({'keys': get_keys()})
 
 
+@app.route('/api/values/<str:key>', methods=['GET'])
+def api_get_values(key):
+    return jsonify({key: get_values(key)})
+
+
 @app.route('/api/set_values', methods=['POST'])
 def api_set_values():
     posted = request.get_json()

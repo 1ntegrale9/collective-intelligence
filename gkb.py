@@ -20,6 +20,8 @@ def set_values(key, values):
 def get_values(key):
     if rc.exists(key):
         return sorted(rc.smembers(key))
+    else:
+        return 'KeyError'
 
 
 def get_intersection(args):
