@@ -16,7 +16,7 @@ def index():
 
 @app.route('/api/get_keys', methods=['GET'])
 def api_get_keys():
-    return jsonify({key: get_keys()})
+    return jsonify({'keys': get_keys()})
 
 
 @app.route('/api/set_values', methods=['POST'])
