@@ -30,11 +30,8 @@ def api_set_values():
     values = posted[key]
     if type(values) != list or any(type(value) != str for value in values):
         return jsonify({'Error': 'Value must be an array of strings'})
-    if set_values(key, values):
-        values = get_values(key)
-        return jsonify({key: values})
-    else:
-        return jsonify({'Error': 'Failed to connect to Database'})
+    values = get_values(key)
+    return jsonify({key: values})
 
 
 if __name__ == '__main__':
