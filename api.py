@@ -23,7 +23,7 @@ def keys():
 @app.route('/api/set_values', methods=['POST'])
 def api_set_values():
     posted = request.get_json()
-    keys = posted.keys()
+    keys = list(posted.keys())
     if len(keys) != 1:
         return jsonify({'Error': 'Specify only one key'})
     key = keys[0]
