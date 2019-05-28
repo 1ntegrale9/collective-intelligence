@@ -17,6 +17,10 @@ def index():
 
 @app.route('/api/get_keys', methods=['GET'])
 def api_get_keys():
+    values = get_keys()
+    if values == 'KeyError':
+        json = jsonify({'Error': 'Not Found'})
+        return make_response(json, 404)
     json = jsonify({'keys': get_keys()})
     return make_response(json, 200)
 
