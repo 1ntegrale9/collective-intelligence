@@ -10,6 +10,7 @@ flask = "*"
 gunicorn = "*"
 redis = "*"
 fastapi = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.7"
