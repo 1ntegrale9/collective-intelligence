@@ -24,6 +24,6 @@ def read_related_tags(tag: str):
 def create_tags_relationship(tags: Tags):
     set_tags(tags.tag1, tags.tag2)
     return {
-        tag1: get_related_tags(tag1),
-        tag2: get_related_tags(tag2)
+        tags.tag1: get_related_tags(tags.tag1),
+        tags.tag2: get_related_tags(tags.tag2)
     }
