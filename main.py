@@ -17,9 +17,9 @@ def read_all_tags():
 
 @app.get('/{tag:path}')
 def read_related_tags(tag: str):
-    return {'tags': get_related_tags(tag)}
+    return {tag: get_related_tags(tag)}
 
 
 @app.post('/')
 def create_relation(tags: Tags):
-    return set_tags(tags.tag1, tags.tag2)
+    return {tags.tag1: set_tags(tags.tag1, tags.tag2)}
