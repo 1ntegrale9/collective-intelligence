@@ -2,7 +2,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from gkb import get_all_tags, get_related_tags, set_tags
 
-app = FastAPI(docs_url='/')
+app = FastAPI(
+    title='collective-intelligence',
+    description='文字列タグ指向無向グラフ型ナレッジベース',
+    docs_url='/'
+)
 
 
 class Tags(BaseModel):
