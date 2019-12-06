@@ -20,10 +20,10 @@ def get_all_tags():
 
 
 def get_related_tags(tag):
-    if r.exists(tag):
-        return sorted(r.smembers(tag))
-    return []
-
+    if not r.exists(tag):
+        return []
+    return sorted(r.smembers(tag))
+    
 
 def get_intersection(tags):
     if not all(r.exists(tag) for tag in tags):
