@@ -3,30 +3,34 @@ import redis
 from functools import reduce
 from operator import and_
 
-pool = redis.ConnectionPool.from_url(os.environ['REDIS_URL'], db=0, decode_responses=True)
-rc = redis.StrictRedis(connection_pool=pool)
+connection_pool = redis.ConnectionPool.from_url(
+    url=os.environ['REDIS_URL'],
+    db=0,
+    decode_responses=True
+)
+r = redis.Redis(connection_pool=connection_pool)
 
 
-def sadd_dual(a, b):
-    rc.sadd(a, b)
-    rc.sadd(b, a)
+def sadd_dual(t1, t2):
+    return r.pipeline().sadd(t1, t2).sadd(t2, t1).execute()
 
 
-def set_values(key, values):
-    for value in values:
-        sadd_dual(key, value)
+def get_all_tags():
+    return sorted(r.keys())
 
 
-def get_values(key):
-    if rc.exists(key):
-        return sorted(rc.smembers(key))
-    return 'KeyError'
+def get_related_tags(tag):
+    if r.exists(tag):
+        return sorted(r.smembers(tag))
+    return []
 
 
-def get_intersection(args):
-    if all(rc.exists(arg) for arg in args):
-        return reduce(and_, (rc.smembers(key) for arg in args for key in rc.keys(arg)))
+def get_intersection(tags):
+    if not all(r.exists(tag) for tag in tags):
+        return []
+    return reduce(and_, (r.smembers(tag) for tag in tags for tag in r.keys(tag)))
 
 
-def get_keys():
-    return sorted(rc.keys())
+def set_tags(tag1, tag2):
+    sadd_dual(tag1, tag2)
+    return get_related_tags(tag1)
