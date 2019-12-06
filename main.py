@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from gkb import get_keys
 
-
 app = FastAPI()
 
 
