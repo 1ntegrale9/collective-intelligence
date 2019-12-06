@@ -11,6 +11,7 @@ gunicorn = "*"
 redis = "*"
 fastapi = "*"
 uvicorn = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.8"
