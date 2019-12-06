@@ -32,5 +32,4 @@ def get_intersection(tags):
 
 
 def set_tags(tag1, tag2):
-    sadd_dual(tag1, tag2)
-    return get_related_tags(tag1)
+    return sadd_dual(tag1, tag2)
