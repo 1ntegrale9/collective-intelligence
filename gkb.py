@@ -7,14 +7,14 @@ pool = redis.ConnectionPool.from_url(os.environ['REDIS_URL'], db=0, decode_respo
 rc = redis.StrictRedis(connection_pool=pool)
 
 
-def sadd_pair(a, b):
+def sadd_dual(a, b):
     rc.sadd(a, b)
     rc.sadd(b, a)
 
 
 def set_values(key, values):
     for value in values:
-        sadd_pair(key, value)
+        sadd_dual(key, value)
 
 
 def get_values(key):
