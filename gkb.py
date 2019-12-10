@@ -11,10 +11,6 @@ connection_pool = redis.ConnectionPool.from_url(
 r = redis.Redis(connection_pool=connection_pool)
 
 
-def sadd_dual(t1, t2):
-    return r.pipeline().sadd(t1, t2).sadd(t2, t1).execute()
-
-
 def get_all_tags():
     return sorted(r.keys())
 
@@ -32,4 +28,4 @@ def get_intersection(tags):
 
 
 def set_tags(tag1, tag2):
-    return sadd_dual(tag1, tag2)
+    return r.pipeline().sadd(tag1, tag2).sadd(tag2, tag1).execute()
