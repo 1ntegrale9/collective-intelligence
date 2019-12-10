@@ -27,7 +27,4 @@ def read_related_tags(tag: str):
 @app.post('/api')
 def create_tags_relationship(tags: Tags):
     set_tags(tags.tag1, tags.tag2)
-    return {
-        tags.tag1: get_related_tags(tags.tag1),
-        tags.tag2: get_related_tags(tags.tag2)
-    }
+    return {tag: get_related_tags(tag) for _, tag in tags}
