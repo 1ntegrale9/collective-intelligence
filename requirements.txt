@@ -1,4 +1,6 @@
-redis
 fastapi
-flake8
+email-validator
 uvicorn
+redis
+hiredis
+pytest-flake8
