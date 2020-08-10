@@ -47,11 +47,11 @@
         },
         "fastapi": {
             "hashes": [
-                "sha256:579c194f78ed3cff1a4e62bbaea79fc1bef05e35294147e41a807f4105a77885",
-                "sha256:7dd1e4380976741a71dec2a7f9035b69268881ca25001cc99f25ca89d2d38ad9"
+                "sha256:29c12dd0d4ac825d13c2db4762d2863281c18085ae521825829182e977fd25ac",
+                "sha256:d0b3f629f8d165a21ee082bf31e1697c391c1cdf940304408614b5b7c59d1fb3"
             ],
             "index": "pypi",
-            "version": "==0.60.2"
+            "version": "==0.61.0"
         },
         "flake8": {
             "hashes": [
