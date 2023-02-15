@@ -12,6 +12,9 @@ app = FastAPI(
     docs_url='/'
 )
 
+class Tag(BaseModel):
+    tag: str
+
 
 class Tags(BaseModel):
     tag1: str
@@ -30,8 +33,8 @@ def create_tags_relationship(tags: Tags):
 
 
 @app.post('/api/pull')
-def read_related_tags(tag: str):
-    return get_related_tags(tag)
+def read_related_tags(tag: Tag):
+    return get_related_tags(tag.tag)
 
 
 if __name__ == '__main__':

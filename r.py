@@ -2,9 +2,12 @@ import os
 import redis
 from functools import reduce
 from operator import and_
+from dotenv import load_dotenv
+
+load_dotenv()
 
 pool = redis.ConnectionPool.from_url(
-    url=os.environ['REDIS_URL'],
+    url=os.getenv('REDIS_URL'),
     decode_responses=True
 )
 conn = redis.Redis(connection_pool=pool)

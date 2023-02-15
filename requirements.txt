@@ -4,3 +4,4 @@ uvicorn
 redis
 hiredis
 pytest-flake8
+python-dotenv
