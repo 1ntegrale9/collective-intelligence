@@ -1,40 +1,38 @@
 import os
 import uvicorn
+import knowledgebase
+from typing import List
 from fastapi import FastAPI
-from pydantic import BaseModel
-from r import get_all_tags
-from r import get_related_tags
-from r import set_tags_relationship
+from model import PushTags
+from model import PullTag
 
 app = FastAPI(
     title='collective-intelligence',
     description='文字列タグ指向無向グラフ型ナレッジベース',
     docs_url='/'
 )
-
-class Tag(BaseModel):
-    tag: str
-
-
-class Tags(BaseModel):
-    tag1: str
-    tag2: str
+db = knowledgebase.DataBase()
+# cache = knowledgebase.Cache()
 
 
 @app.get('/api')
 def read_all_tags():
-    return get_all_tags()
+    return db.get_all_tags()
 
 
 @app.post('/api/push')
-def create_tags_relationship(tags: Tags):
-    set_tags_relationship(tags.tag1, tags.tag2)
-    return {tag: get_related_tags(tag) for _, tag in tags}
+def create_tags_relationship(push: PushTags) -> List[List[str]]:
+    documents = db.compose_documents(push.tag1, push.tag2, push.domain, push.domain_id, push.user_id)
+    db.set_tags_relationship(documents)
+    return [
+        db.get_related_tags(push.tag1, push.domain, push.domain_id),
+        db.get_related_tags(push.tag2, push.domain, push.domain_id),
+    ]
 
 
 @app.post('/api/pull')
-def read_related_tags(tag: Tag):
-    return get_related_tags(tag.tag)
+def read_related_tags(pull: PullTag) -> List[str]:
+    return db.get_related_tags(pull.tag, pull.domain, pull.domain_id, pull.user_id)
 
 
 if __name__ == '__main__':
